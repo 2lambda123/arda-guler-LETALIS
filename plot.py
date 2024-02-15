@@ -113,11 +113,9 @@ def plot_data(
         ax.set_aspect("equal")
         ax.set_ylim([-max(geom_y) * 0.7, max(max(geom_x), max(geom_y))])
         ax.plot(geom_x, geom_y, color="black")
-        ax.fill_between(geom_x,
-                        geom_y,
-                        where=[True] * len(geom_x),
-                        interpolate=True,
-                        color="black")
+        ax.fill_between(
+            geom_x, geom_y, where=[True] * len(geom_x), interpolate=True, color="black"
+        )
         ax.set_ylabel("Engine Contour (m)")
         ax.yaxis.set_label_position("right")
         ax.yaxis.tick_right()
@@ -578,7 +576,7 @@ def plot_data(
 
     plt.xlim = (0, xs[-1])
     plt.ylim(0, max(cylinder_temps[-1]) + 50)
-    (wall_temp_line, ) = ax.plot(xs, cylinder_temps[-1])
+    (wall_temp_line,) = ax.plot(xs, cylinder_temps[-1])
 
     def animate_wall_temp(i):
         """
@@ -587,13 +585,11 @@ def plot_data(
 
         """
         wall_temp_line.set_ydata(cylinder_temps[i])
-        return (wall_temp_line, )
+        return (wall_temp_line,)
 
-    anim_wall_temp = animation.FuncAnimation(fig,
-                                             animate_wall_temp,
-                                             blit=True,
-                                             frames=list(
-                                                 range(len(cylinder_temps))))
+    anim_wall_temp = animation.FuncAnimation(
+        fig, animate_wall_temp, blit=True, frames=list(range(len(cylinder_temps)))
+    )
 
     anims.append(anim_wall_temp)
 
@@ -608,7 +604,7 @@ def plot_data(
 
     plt.xlim = (0, xs[-1])
     plt.ylim(0, max(coolant_temps[-1]) + 50)
-    (coolant_temp_line, ) = ax.plot(xs, coolant_temps[-1])
+    (coolant_temp_line,) = ax.plot(xs, coolant_temps[-1])
 
     def animate_coolant_temp(i):
         """
@@ -617,13 +613,11 @@ def plot_data(
 
         """
         coolant_temp_line.set_ydata(coolant_temps[i])
-        return (coolant_temp_line, )
+        return (coolant_temp_line,)
 
-    anim_coolant_temp = animation.FuncAnimation(fig,
-                                                animate_coolant_temp,
-                                                blit=True,
-                                                frames=list(
-                                                    range(len(coolant_temps))))
+    anim_coolant_temp = animation.FuncAnimation(
+        fig, animate_coolant_temp, blit=True, frames=list(range(len(coolant_temps)))
+    )
 
     anims.append(anim_coolant_temp)
 
@@ -638,8 +632,8 @@ def plot_data(
 
     plt.xlim = (0, xs[-1])
     plt.ylim(min(Q_outs[-1]), max(Q_ins[-1]) + 500)
-    (Q_ins_line, ) = ax.plot(xs, Q_ins[-1])
-    (Q_outs_line, ) = ax.plot(xs, Q_outs[-1])
+    (Q_ins_line,) = ax.plot(xs, Q_ins[-1])
+    (Q_outs_line,) = ax.plot(xs, Q_outs[-1])
 
     def animate_heat_transfer(i):
         """
@@ -655,10 +649,9 @@ def plot_data(
             Q_outs_line,
         )
 
-    anim_heat_trans = animation.FuncAnimation(fig,
-                                              animate_heat_transfer,
-                                              blit=True,
-                                              frames=list(range(len(Q_ins))))
+    anim_heat_trans = animation.FuncAnimation(
+        fig, animate_heat_transfer, blit=True, frames=list(range(len(Q_ins)))
+    )
 
     anims.append(anim_heat_trans)
 
@@ -666,7 +659,8 @@ def plot_data(
 
     if not filename:
         folder_name = "heat_analysis_" + datetime.datetime.now().strftime(
-            "%y%m%d%H%M%S")
+            "%y%m%d%H%M%S"
+        )
     else:
         if "/" in filename:
             folder_name = filename.split("/")[2].split(".")[0]
@@ -694,8 +688,7 @@ def plot_data(
             # f.write("Max. coolant channel width (m): " + str(L_max_chan_width) + "\n")
             # f.write("Chamber coolant channel width (m): " + str(L_chamber_chan_width) + "\n")
             # f.write("Skirt coolant channel width (m): " + str(L_skirt_chan_width) + "\n\n")
-            f.write("Engine contour change positions (m) = " +
-                    str(engine_lengths))
+            f.write("Engine contour change positions (m) = " + str(engine_lengths))
     except:
         print("WARNING: Could not export geometry data.")
 
@@ -714,8 +707,7 @@ def plot_data(
     try:
         shutil.copy("modelviewer.py", folder_name)
     except:
-        print(
-            "WARNING: Could not copy modelviewer utility to analysis folder.")
+        print("WARNING: Could not copy modelviewer utility to analysis folder.")
 
     try:
         for i in range(1, plotnum + 1):

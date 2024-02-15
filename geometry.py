@@ -56,19 +56,9 @@ def get_sector_face_area_slanted(r1, r2, angle, height):
 class cylinder:
     """ """
 
-    def __init__(self,
-                 x,
-                 r_in,
-                 r_out,
-                 h,
-                 n_clt,
-                 r_clt,
-                 a_clt,
-                 b_clt,
-                 mtl,
-                 T_init,
-                 M,
-                 r_prev=None):
+    def __init__(
+        self, x, r_in, r_out, h, n_clt, r_clt, a_clt, b_clt, mtl, T_init, M, r_prev=None
+    ):
         self.x = x
         self.r_in = r_in
         self.thickness = r_out - r_in
@@ -87,15 +77,15 @@ class cylinder:
         self.T_diff = 0  # inner - outer wall temperature difference
         self.Mach = M  # flow mach number at cylinder position
 
-        self.A_chm = get_sector_face_area(r_in, 360,
-                                          h)  # area facing chamber (m2)
+        self.A_chm = get_sector_face_area(r_in, 360, h)  # area facing chamber (m2)
         # flow area of single coolant channel (m2)
         self.A_cochan_flow = a_clt * b_clt
         # area facing coolant (m2)
         self.A_clt = n_clt * h * (a_clt + 2 * b_clt)
 
         self.V = get_volume_of_sector(r_in, r_out, 360, h) - (
-            self.A_cochan_flow * h * n_clt)  # volume (m3)
+            self.A_cochan_flow * h * n_clt
+        )  # volume (m3)
         self.m = self.V * self.mtl.get_density()  # mass
 
     def get_m(self):
@@ -136,8 +126,7 @@ class cylinder:
 
     def get_thermal_resistance(self):
         """ """
-        return self.thickness / (self.mtl.get_thermal_conductivity(self.T) *
-                                 self.A_chm)
+        return self.thickness / (self.mtl.get_thermal_conductivity(self.T) * self.A_chm)
 
 
 # calculate_geometry() calculates the whole geometry all at once and show it
@@ -215,17 +204,19 @@ def calculate_geometry(
     R_chamber_contract_cone_min = R_thrt + arc_diff(R, theta)  # m
     L_nzl_upstream_curve = R * math.sin(theta)
 
-    L_chm_contract_cone = (R_chamber_contract_cone_max -
-                           R_chamber_contract_cone_min) * (1 / math.tan(theta)
-                                                           )  # change
-    L_chm_contract_total = (L_chamber_contract_curve + L_chm_contract_cone +
-                            L_nzl_upstream_curve)
+    L_chm_contract_cone = (
+        R_chamber_contract_cone_max - R_chamber_contract_cone_min
+    ) * (
+        1 / math.tan(theta)
+    )  # change
+    L_chm_contract_total = (
+        L_chamber_contract_curve + L_chm_contract_cone + L_nzl_upstream_curve
+    )
 
     # NOZZLE DOWNSTREAM CURVE
 
     L_nzl_downstream_curve = ROC_thrtDn * math.tan(math.radians(a_nzlExp))  # m
-    L_nzl_upstream_curve = ROC_thrtUp * math.sin(
-        math.radians(a_chmContract))  # m
+    L_nzl_upstream_curve = ROC_thrtUp * math.sin(math.radians(a_chmContract))  # m
 
     R = ROC_thrtDn  # temporary variable to keep the code short (m)
     # temporary variable to keep the code short (radians)
@@ -233,17 +224,14 @@ def calculate_geometry(
     R_nzl_downstream_curve_max = arc_diff(R, theta) + R_thrt  # m
     L_nzl_downstream_curve = R * math.sin(theta)  # m
     R_exit = D_exit / 2  # m
-    L_nzl_cone = (R_exit - R_nzl_downstream_curve_max) * (1 / math.tan(theta)
-                                                          )  # m
+    L_nzl_cone = (R_exit - R_nzl_downstream_curve_max) * (1 / math.tan(theta))  # m
     L_nzl = L_nzl_downstream_curve + L_nzl_cone  # m
 
     # COMBUSTION CHAMBER CYLINDER
     L_chm_cylinder = L_engine - (L_chm_contract_total + L_nzl)
 
     if L_chm_cylinder <= 0:
-        print(
-            "Invalid geometry! No room for cylindrical combustion chamber segment!"
-        )
+        print("Invalid geometry! No room for cylindrical combustion chamber segment!")
         quit()
 
     # show calculated engine geometry
@@ -251,12 +239,27 @@ def calculate_geometry(
     L2 = L_chm_cylinder
     L3 = L_chm_cylinder + L_chamber_contract_curve
     L4 = L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone
-    L5 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve)
-    L6 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve + L_nzl_downstream_curve)
-    L7 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve + L_nzl_downstream_curve + L_nzl_cone)
+    L5 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+    )
+    L6 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+        + L_nzl_downstream_curve
+    )
+    L7 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+        + L_nzl_downstream_curve
+        + L_nzl_cone
+    )
 
     x1 = []
     y1 = []
@@ -295,10 +298,9 @@ def calculate_geometry(
 
         # combustion chamber contraction with constant angle
         elif L3 < i <= L4:
-            y_current = (R_chamber_contract_cone_max -
-                         R_chamber_contract_cone_min) * (
-                             (L4 - i) /
-                             (L4 - L3)) + R_chamber_contract_cone_min
+            y_current = (R_chamber_contract_cone_max - R_chamber_contract_cone_min) * (
+                (L4 - i) / (L4 - L3)
+            ) + R_chamber_contract_cone_min
             x3.append(x_current)
             y3.append(y_current)
 
@@ -319,7 +321,8 @@ def calculate_geometry(
         # nozzle cone
         elif L6 < i <= L7:
             y_current = R_nzl_downstream_curve_max + (
-                R_exit - R_nzl_downstream_curve_max) * ((i - L6) / L_nzl_cone)
+                R_exit - R_nzl_downstream_curve_max
+            ) * ((i - L6) / L_nzl_cone)
             x6.append(x_current)
             y6.append(y_current)
 
@@ -399,9 +402,9 @@ def calculate_geometry_bell(
     ROC_thrtDn = R_thrt * 0.382
 
     # BELL NOZZLE CONTOUR (INLCUDING THROAT UPSTREAM)
-    bell_x, bell_y = compute_bell_geometry(D_thrt, D_exit, length_percent,
-                                           a_chmContract, theta_n, theta_e,
-                                           x_fine, t_fine)
+    bell_x, bell_y = compute_bell_geometry(
+        D_thrt, D_exit, length_percent, a_chmContract, theta_n, theta_e, x_fine, t_fine
+    )
     L_bellNozzle = bell_x[-1] - bell_x[0]
 
     # CHAMBER CONTRACTION CURVE
@@ -417,9 +420,11 @@ def calculate_geometry_bell(
     R_chamber_contract_cone_min = R_thrt + arc_diff(R, theta)  # m
     L_nzl_upstream_curve = R * math.sin(theta)
 
-    L_chm_contract_cone = (R_chamber_contract_cone_max -
-                           R_chamber_contract_cone_min) * (1 / math.tan(theta)
-                                                           )  # change
+    L_chm_contract_cone = (
+        R_chamber_contract_cone_max - R_chamber_contract_cone_min
+    ) * (
+        1 / math.tan(theta)
+    )  # change
     L_chm_contract_total = L_chamber_contract_curve + L_chm_contract_cone
 
     # CHAMBER
@@ -438,10 +443,19 @@ def calculate_geometry_bell(
     L2 = L_chm_cylinder
     L3 = L_chm_cylinder + L_chamber_contract_curve
     L4 = L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone
-    L5 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve)
-    L6 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve + L_nzl_downstream_curve)
+    L5 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+    )
+    L6 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+        + L_nzl_downstream_curve
+    )
     L7 = L_engine
 
     bell_x_adjusted = []
@@ -488,10 +502,9 @@ def calculate_geometry_bell(
 
         # combustion chamber contraction with constant angle
         elif L3 < i <= L4:
-            y_current = (R_chamber_contract_cone_max -
-                         R_chamber_contract_cone_min) * (
-                             (L4 - i) /
-                             (L4 - L3)) + R_chamber_contract_cone_min
+            y_current = (R_chamber_contract_cone_max - R_chamber_contract_cone_min) * (
+                (L4 - i) / (L4 - L3)
+            ) + R_chamber_contract_cone_min
             x3.append(x_current)
             y3.append(y_current)
 
@@ -607,16 +620,17 @@ def get_inner_radius_at(
     R_chamber_contract_cone_min = R_thrt + arc_diff(R, theta)  # m
     L_nzl_upstream_curve = R * math.sin(theta)
 
-    L_chm_contract_cone = (R_chamber_contract_cone_max -
-                           R_chamber_contract_cone_min) * (math.tan(theta))
-    L_chm_contract_total = (L_chamber_contract_curve + L_chm_contract_cone +
-                            L_nzl_upstream_curve)
+    L_chm_contract_cone = (
+        R_chamber_contract_cone_max - R_chamber_contract_cone_min
+    ) * (math.tan(theta))
+    L_chm_contract_total = (
+        L_chamber_contract_curve + L_chm_contract_cone + L_nzl_upstream_curve
+    )
 
     # NOZZLE DOWNSTREAM CURVE
 
     L_nzl_downstream_curve = ROC_thrtDn * math.tan(math.radians(a_nzlExp))  # m
-    L_nzl_upstream_curve = ROC_thrtUp * math.sin(
-        math.radians(a_chmContract))  # m
+    L_nzl_upstream_curve = ROC_thrtUp * math.sin(math.radians(a_chmContract))  # m
 
     R = ROC_thrtDn  # temporary variable to keep the code short (m)
     # temporary variable to keep the code short (radians)
@@ -624,17 +638,14 @@ def get_inner_radius_at(
     R_nzl_downstream_curve_max = arc_diff(R, theta) + R_thrt  # m
     L_nzl_downstream_curve = R * math.sin(theta)  # m
     R_exit = D_exit / 2  # m
-    L_nzl_cone = (R_exit - R_nzl_downstream_curve_max) * (1 / math.tan(theta)
-                                                          )  # m
+    L_nzl_cone = (R_exit - R_nzl_downstream_curve_max) * (1 / math.tan(theta))  # m
     L_nzl = L_nzl_downstream_curve + L_nzl_cone  # m
 
     # COMBUSTION CHAMBER CYLINDER
     L_chm_cylinder = L_engine - (L_chm_contract_total + L_nzl)
 
     if L_chm_cylinder <= 0:
-        print(
-            "Invalid geometry! No room for cylindrical combustion chamber segment!"
-        )
+        print("Invalid geometry! No room for cylindrical combustion chamber segment!")
         quit()
 
     # show calculated engine geometry
@@ -642,12 +653,27 @@ def get_inner_radius_at(
     L2 = L_chm_cylinder
     L3 = L_chm_cylinder + L_chamber_contract_curve
     L4 = L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone
-    L5 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve)  # throat
-    L6 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve + L_nzl_downstream_curve)
-    L7 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve + L_nzl_downstream_curve + L_nzl_cone)  # exit
+    L5 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+    )  # throat
+    L6 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+        + L_nzl_downstream_curve
+    )
+    L7 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+        + L_nzl_downstream_curve
+        + L_nzl_cone
+    )  # exit
 
     i = x
 
@@ -662,9 +688,9 @@ def get_inner_radius_at(
 
     # combustion chamber contraction with constant angle
     elif L3 < i <= L4:
-        y_current = (R_chamber_contract_cone_max -
-                     R_chamber_contract_cone_min) * (
-                         (L4 - i) / (L4 - L3)) + R_chamber_contract_cone_min
+        y_current = (R_chamber_contract_cone_max - R_chamber_contract_cone_min) * (
+            (L4 - i) / (L4 - L3)
+        ) + R_chamber_contract_cone_min
 
     # nozzle upstream curve
     elif L4 < i <= L5:
@@ -679,7 +705,8 @@ def get_inner_radius_at(
     # nozzle cone
     elif L6 < i <= L7:
         y_current = R_nzl_downstream_curve_max + (
-            R_exit - R_nzl_downstream_curve_max) * ((i - L6) / L_nzl_cone)
+            R_exit - R_nzl_downstream_curve_max
+        ) * ((i - L6) / L_nzl_cone)
 
     else:
         print("ERROR:", x, "is out of bounds to get radius!")
@@ -740,9 +767,9 @@ def get_inner_radius_at_bell(
 
     # BELL NOZZLE CONTOUR (INLCUDING THROAT UPSTREAM)
 
-    bell_x, bell_y = compute_bell_geometry(D_thrt, D_exit, length_percent,
-                                           a_chmContract, theta_n, theta_e,
-                                           100, 1000)
+    bell_x, bell_y = compute_bell_geometry(
+        D_thrt, D_exit, length_percent, a_chmContract, theta_n, theta_e, 100, 1000
+    )
     L_bellNozzle = bell_x[-1] - bell_x[0]
 
     # CHAMBER CONTRACTION CURVE
@@ -758,9 +785,11 @@ def get_inner_radius_at_bell(
     R_chamber_contract_cone_min = R_thrt + arc_diff(R, theta)  # m
     L_nzl_upstream_curve = R * math.sin(theta)
 
-    L_chm_contract_cone = (R_chamber_contract_cone_max -
-                           R_chamber_contract_cone_min) * (1 / math.tan(theta)
-                                                           )  # change
+    L_chm_contract_cone = (
+        R_chamber_contract_cone_max - R_chamber_contract_cone_min
+    ) * (
+        1 / math.tan(theta)
+    )  # change
     L_chm_contract_total = L_chamber_contract_curve + L_chm_contract_cone
 
     # CHAMBER
@@ -779,10 +808,19 @@ def get_inner_radius_at_bell(
     L2 = L_chm_cylinder
     L3 = L_chm_cylinder + L_chamber_contract_curve
     L4 = L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone
-    L5 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve)
-    L6 = (L_chm_cylinder + L_chamber_contract_curve + L_chm_contract_cone +
-          L_nzl_upstream_curve + L_nzl_downstream_curve)
+    L5 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+    )
+    L6 = (
+        L_chm_cylinder
+        + L_chamber_contract_curve
+        + L_chm_contract_cone
+        + L_nzl_upstream_curve
+        + L_nzl_downstream_curve
+    )
     L7 = L_engine
 
     bell_x_adjusted = []
@@ -801,9 +839,9 @@ def get_inner_radius_at_bell(
 
     # combustion chamber contraction with constant angle
     elif L3 < i <= L4:
-        y_current = (R_chamber_contract_cone_max -
-                     R_chamber_contract_cone_min) * (
-                         (L4 - i) / (L4 - L3)) + R_chamber_contract_cone_min
+        y_current = (R_chamber_contract_cone_max - R_chamber_contract_cone_min) * (
+            (L4 - i) / (L4 - L3)
+        ) + R_chamber_contract_cone_min
 
     elif L4 < i:
         y_current = get_parabola_y_at(i, bell_x_adjusted, bell_y)
@@ -921,9 +959,7 @@ def generate_3D_old(
 
         # build inner wall
         for i in range(n_vertices_half_circle):
-            current_vertex = [
-                x, r_in * math.sin(theta), r_in * math.cos(theta)
-            ]
+            current_vertex = [x, r_in * math.sin(theta), r_in * math.cos(theta)]
             vertices.append(current_vertex)
             theta += pi / n_vertices_half_circle
 
@@ -941,15 +977,11 @@ def generate_3D_old(
         for i in range(n_vertices_half_circle):
             # it is a wall vertex
             if theta % a_full <= a_sideWall:
-                current_vertex = [
-                    x, r_out * math.sin(theta), r_out * math.cos(theta)
-                ]
+                current_vertex = [x, r_out * math.sin(theta), r_out * math.cos(theta)]
 
             # it is a channel vertex
             else:
-                current_vertex = [
-                    x, r_clt * math.sin(theta), r_clt * math.cos(theta)
-                ]
+                current_vertex = [x, r_clt * math.sin(theta), r_clt * math.cos(theta)]
 
             vertices.append(current_vertex)
             theta += pi / n_vertices_half_circle
@@ -1011,9 +1043,7 @@ def generate_3D_blade(
 
         theta = -pi / 2
         for i in range(n_verticesInnerHalfCircle):
-            current_vertex = [
-                x, r_in * math.sin(theta), r_in * math.cos(theta)
-            ]
+            current_vertex = [x, r_in * math.sin(theta), r_in * math.cos(theta)]
             vertices.append(current_vertex)
             theta += pi / n_verticesInnerHalfCircle
 
