@@ -67,38 +67,30 @@ def calc_mach_num(
     for i in range(fineness):
         x = x_thrt - (i * subsonic_step_size)
 
-        A_star = (
-            pi
-            * get_inner_radius_at(
-                x_thrt,
-                L_engine,
-                D_chm,
-                D_thrt,
-                D_exit,
-                a_chmContract,
-                ROC_chm,
-                a_nzlExp,
-                ROC_thrtDn,
-                ROC_thrtUp,
-            )
-            ** 2
-        )
-        A = (
-            pi
-            * get_inner_radius_at(
-                x,
-                L_engine,
-                D_chm,
-                D_thrt,
-                D_exit,
-                a_chmContract,
-                ROC_chm,
-                a_nzlExp,
-                ROC_thrtDn,
-                ROC_thrtUp,
-            )
-            ** 2
-        )
+        A_star = (pi * get_inner_radius_at(
+            x_thrt,
+            L_engine,
+            D_chm,
+            D_thrt,
+            D_exit,
+            a_chmContract,
+            ROC_chm,
+            a_nzlExp,
+            ROC_thrtDn,
+            ROC_thrtUp,
+        )**2)
+        A = (pi * get_inner_radius_at(
+            x,
+            L_engine,
+            D_chm,
+            D_thrt,
+            D_exit,
+            a_chmContract,
+            ROC_chm,
+            a_nzlExp,
+            ROC_thrtDn,
+            ROC_thrtUp,
+        )**2)
         A_ratio = A / A_star
 
         # Reference (1)
@@ -117,13 +109,14 @@ def calc_mach_num(
         while abs(A_ratio - aro) > 0.0001:
             try:
                 fac = 1 + 0.5 * gm1 * machn**2
-                arn = 1 / (machn * fac ** (-fac1) * (gp1 / 2) ** fac1)
+                arn = 1 / (machn * fac**(-fac1) * (gp1 / 2)**fac1)
                 deriv = (arn - aro) / (machn - macho)
                 aro = arn
                 macho = machn
                 machn = macho + (arat - aro) / deriv
             except ZeroDivisionError:
-                print("The Mach profile calculator attempted to divide by zero.")
+                print(
+                    "The Mach profile calculator attempted to divide by zero.")
                 break
 
                 # - - - - - - END QUOTE - - - - - -
@@ -155,38 +148,30 @@ def calc_mach_num(
     for i in range(fineness):
         x = x_thrt + (i * supersonic_step_size)
 
-        A_star = (
-            pi
-            * get_inner_radius_at(
-                x_thrt,
-                L_engine,
-                D_chm,
-                D_thrt,
-                D_exit,
-                a_chmContract,
-                ROC_chm,
-                a_nzlExp,
-                ROC_thrtDn,
-                ROC_thrtUp,
-            )
-            ** 2
-        )
-        A = (
-            pi
-            * get_inner_radius_at(
-                x,
-                L_engine,
-                D_chm,
-                D_thrt,
-                D_exit,
-                a_chmContract,
-                ROC_chm,
-                a_nzlExp,
-                ROC_thrtDn,
-                ROC_thrtUp,
-            )
-            ** 2
-        )
+        A_star = (pi * get_inner_radius_at(
+            x_thrt,
+            L_engine,
+            D_chm,
+            D_thrt,
+            D_exit,
+            a_chmContract,
+            ROC_chm,
+            a_nzlExp,
+            ROC_thrtDn,
+            ROC_thrtUp,
+        )**2)
+        A = (pi * get_inner_radius_at(
+            x,
+            L_engine,
+            D_chm,
+            D_thrt,
+            D_exit,
+            a_chmContract,
+            ROC_chm,
+            a_nzlExp,
+            ROC_thrtDn,
+            ROC_thrtUp,
+        )**2)
         A_ratio = A / A_star
 
         # Reference (1)
@@ -205,13 +190,14 @@ def calc_mach_num(
         while abs(A_ratio - aro) > 0.0001:
             try:
                 fac = 1 + 0.5 * gm1 * machn**2
-                arn = 1 / (machn * fac ** (-fac1) * (gp1 / 2) ** fac1)
+                arn = 1 / (machn * fac**(-fac1) * (gp1 / 2)**fac1)
                 deriv = (arn - aro) / (machn - macho)
                 aro = arn
                 macho = machn
                 machn = macho + (arat - aro) / deriv
             except ZeroDivisionError:
-                print("The Mach profile calculator attempted to divide by zero.")
+                print(
+                    "The Mach profile calculator attempted to divide by zero.")
                 break
             # - - - - - - END QUOTE - - - - - -
 
@@ -293,23 +279,19 @@ def calc_mach_num_bell(
     for i in range(fineness):
         x = x_thrt - (i * subsonic_step_size)
 
-        A_star = pi * (D_thrt / 2) ** 2
-        A = (
-            pi
-            * get_inner_radius_at_bell(
-                x,
-                L_engine,
-                D_chm,
-                D_thrt,
-                D_exit,
-                ROC_chm,
-                a_chmContract,
-                length_percent,
-                theta_n,
-                theta_e,
-            )
-            ** 2
-        )
+        A_star = pi * (D_thrt / 2)**2
+        A = (pi * get_inner_radius_at_bell(
+            x,
+            L_engine,
+            D_chm,
+            D_thrt,
+            D_exit,
+            ROC_chm,
+            a_chmContract,
+            length_percent,
+            theta_n,
+            theta_e,
+        )**2)
         A_ratio = A / A_star
 
         # Reference (1)
@@ -328,13 +310,14 @@ def calc_mach_num_bell(
         while abs(A_ratio - aro) > 0.0001:
             try:
                 fac = 1 + 0.5 * gm1 * machn**2
-                arn = 1 / (machn * fac ** (-fac1) * (gp1 / 2) ** fac1)
+                arn = 1 / (machn * fac**(-fac1) * (gp1 / 2)**fac1)
                 deriv = (arn - aro) / (machn - macho)
                 aro = arn
                 macho = machn
                 machn = macho + (arat - aro) / deriv
             except ZeroDivisionError:
-                print("The Mach profile calculator attempted to divide by zero.")
+                print(
+                    "The Mach profile calculator attempted to divide by zero.")
                 break
 
             # - - - - - - END QUOTE - - - - - -
@@ -381,23 +364,19 @@ def calc_mach_num_bell(
     for i in range(fineness):
         x = x_thrt + (i * supersonic_step_size)
 
-        A_star = pi * (D_thrt / 2) ** 2
-        A = (
-            pi
-            * get_inner_radius_at_bell(
-                x,
-                L_engine,
-                D_chm,
-                D_thrt,
-                D_exit,
-                ROC_chm,
-                a_chmContract,
-                length_percent,
-                theta_n,
-                theta_e,
-            )
-            ** 2
-        )
+        A_star = pi * (D_thrt / 2)**2
+        A = (pi * get_inner_radius_at_bell(
+            x,
+            L_engine,
+            D_chm,
+            D_thrt,
+            D_exit,
+            ROC_chm,
+            a_chmContract,
+            length_percent,
+            theta_n,
+            theta_e,
+        )**2)
         A_ratio = A / A_star
 
         # Reference (1)
@@ -416,13 +395,14 @@ def calc_mach_num_bell(
         while abs(A_ratio - aro) > 0.0001:
             try:
                 fac = 1 + 0.5 * gm1 * machn**2
-                arn = 1 / (machn * fac ** (-fac1) * (gp1 / 2) ** fac1)
+                arn = 1 / (machn * fac**(-fac1) * (gp1 / 2)**fac1)
                 deriv = (arn - aro) / (machn - macho)
                 aro = arn
                 macho = machn
                 machn = macho + (arat - aro) / deriv
             except ZeroDivisionError:
-                print("The Mach profile calculator attempted to divide by zero.")
+                print(
+                    "The Mach profile calculator attempted to divide by zero.")
                 break
             # - - - - - - END QUOTE - - - - - -
 
@@ -478,9 +458,8 @@ def get_index_of_closest_num_in_list(x, lst):
 # this function just reads values from the already-calculated mach number distribution
 
 
-def get_mach_num_at(
-    x, subsonic_mach, subsonic_x, supersonic_mach, supersonic_x, engine_lengths
-):
+def get_mach_num_at(x, subsonic_mach, subsonic_x, supersonic_mach,
+                    supersonic_x, engine_lengths):
     """
 
     :param x: param subsonic_mach:
