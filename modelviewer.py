@@ -69,46 +69,38 @@ def rotate_matrix(orientation_matrix, rotation):
     orientation_matrix = numpy.array(orientation_matrix)
 
     if rotation[0]:
-        rotator = Quaternion(
-            axis=orientation_matrix[0], angle=math.radians(rotation[0])
-        )
-        orientation_matrix = numpy.array(
-            [
-                rotator.rotate(orientation_matrix[0]),
-                rotator.rotate(orientation_matrix[1]),
-                rotator.rotate(orientation_matrix[2]),
-            ]
-        )
+        rotator = Quaternion(axis=orientation_matrix[0],
+                             angle=math.radians(rotation[0]))
+        orientation_matrix = numpy.array([
+            rotator.rotate(orientation_matrix[0]),
+            rotator.rotate(orientation_matrix[1]),
+            rotator.rotate(orientation_matrix[2]),
+        ])
 
     if rotation[1]:
-        rotator = Quaternion(
-            axis=orientation_matrix[1], angle=math.radians(rotation[1])
-        )
-        orientation_matrix = numpy.array(
-            [
-                rotator.rotate(orientation_matrix[0]),
-                rotator.rotate(orientation_matrix[1]),
-                rotator.rotate(orientation_matrix[2]),
-            ]
-        )
+        rotator = Quaternion(axis=orientation_matrix[1],
+                             angle=math.radians(rotation[1]))
+        orientation_matrix = numpy.array([
+            rotator.rotate(orientation_matrix[0]),
+            rotator.rotate(orientation_matrix[1]),
+            rotator.rotate(orientation_matrix[2]),
+        ])
 
     if rotation[2]:
-        rotator = Quaternion(
-            axis=orientation_matrix[2], angle=math.radians(rotation[2])
-        )
-        orientation_matrix = numpy.array(
-            [
-                rotator.rotate(orientation_matrix[0]),
-                rotator.rotate(orientation_matrix[1]),
-                rotator.rotate(orientation_matrix[2]),
-            ]
-        )
+        rotator = Quaternion(axis=orientation_matrix[2],
+                             angle=math.radians(rotation[2]))
+        orientation_matrix = numpy.array([
+            rotator.rotate(orientation_matrix[0]),
+            rotator.rotate(orientation_matrix[1]),
+            rotator.rotate(orientation_matrix[2]),
+        ])
 
     return orientation_matrix.tolist()
 
 
 class camera:
     """ """
+
     def __init__(self, pos, orient):
         self.pos = pos
         self.orient = orient
@@ -120,30 +112,27 @@ class camera:
 
         """
         glTranslate(
-            (movement[0] * self.orient[0][0])
-            + (movement[1] * self.orient[1][0])
-            + (movement[2] * self.orient[2][0]),
-            (movement[0] * self.orient[0][1])
-            + (movement[1] * self.orient[1][1])
-            + (movement[2] * self.orient[2][1]),
-            (movement[0] * self.orient[0][2])
-            + (movement[1] * self.orient[1][2])
-            + (movement[2] * self.orient[2][2]),
+            (movement[0] * self.orient[0][0]) +
+            (movement[1] * self.orient[1][0]) +
+            (movement[2] * self.orient[2][0]),
+            (movement[0] * self.orient[0][1]) +
+            (movement[1] * self.orient[1][1]) +
+            (movement[2] * self.orient[2][1]),
+            (movement[0] * self.orient[0][2]) +
+            (movement[1] * self.orient[1][2]) +
+            (movement[2] * self.orient[2][2]),
         )
 
         self.pos = [
-            self.pos[0]
-            + (movement[0] * self.orient[0][0])
-            + (movement[1] * self.orient[1][0])
-            + (movement[2] * self.orient[2][0]),
-            self.pos[1]
-            + (movement[0] * self.orient[0][1])
-            + (movement[1] * self.orient[1][1])
-            + (movement[2] * self.orient[2][1]),
-            self.pos[2]
-            + (movement[0] * self.orient[0][2])
-            + (movement[1] * self.orient[1][2])
-            + (movement[2] * self.orient[2][2]),
+            self.pos[0] + (movement[0] * self.orient[0][0]) +
+            (movement[1] * self.orient[1][0]) +
+            (movement[2] * self.orient[2][0]),
+            self.pos[1] + (movement[0] * self.orient[0][1]) +
+            (movement[1] * self.orient[1][1]) +
+            (movement[2] * self.orient[2][1]),
+            self.pos[2] + (movement[0] * self.orient[0][2]) +
+            (movement[1] * self.orient[1][2]) +
+            (movement[2] * self.orient[2][2]),
         ]
 
     def rotate(self, rotation):
@@ -155,15 +144,18 @@ class camera:
         about_pos = self.pos
 
         glTranslate(-about_pos[0], -about_pos[1], -about_pos[2])
-        glRotate(-rotation[0], self.orient[0][0], self.orient[0][1], self.orient[0][2])
+        glRotate(-rotation[0], self.orient[0][0], self.orient[0][1],
+                 self.orient[0][2])
         glTranslate(about_pos[0], about_pos[1], about_pos[2])
 
         glTranslate(-about_pos[0], -about_pos[1], -about_pos[2])
-        glRotate(-rotation[1], self.orient[1][0], self.orient[1][1], self.orient[1][2])
+        glRotate(-rotation[1], self.orient[1][0], self.orient[1][1],
+                 self.orient[1][2])
         glTranslate(about_pos[0], about_pos[1], about_pos[2])
 
         glTranslate(-about_pos[0], -about_pos[1], -about_pos[2])
-        glRotate(-rotation[2], self.orient[2][0], self.orient[2][1], self.orient[2][2])
+        glRotate(-rotation[2], self.orient[2][0], self.orient[2][1],
+                 self.orient[2][2])
         glTranslate(about_pos[0], about_pos[1], about_pos[2])
 
         self.orient = rotate_matrix(self.orient, rotation)
@@ -232,7 +224,8 @@ def main():
 
     glfw.init()
 
-    window = glfw.create_window(window_x, window_y, "Engine Viewer", None, None)
+    window = glfw.create_window(window_x, window_y, "Engine Viewer", None,
+                                None)
     glfw.set_window_pos(window, 100, 100)
     glfw.make_context_current(window)
 

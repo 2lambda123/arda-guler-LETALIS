@@ -20,12 +20,14 @@ def is_run_from_idle():
 
 
 if is_run_from_idle():
-    print("Please do not run the program on IDLE. Use the terminal/cmd instead.")
+    print(
+        "Please do not run the program on IDLE. Use the terminal/cmd instead.")
     quit()
 
 
 class entry:
     """ """
+
     def __init__(self, entry_field, entry_label, unit_field, unit_type):
         self.entry_field = entry_field
         self.entry_label = entry_label
@@ -133,13 +135,8 @@ def export_file():
     with open(save_filename, "w") as cf:
         for entry in entries:
             cf.write(
-                str(entry.entry_label)
-                + " "
-                + str(entry.get_value())
-                + " "
-                + str(entry.unit_field.get())
-                + "\n"
-            )
+                str(entry.entry_label) + " " + str(entry.get_value()) + " " +
+                str(entry.unit_field.get()) + "\n")
 
 
 def import_file():
@@ -169,13 +166,9 @@ def import_file():
                     pass
 
                 if cval == "":
-                    if (
-                        element == "SS"
-                        or element == "CCZ"
-                        or element == "Jet_A1"
-                        or element == "bell"
-                        or element == "conic"
-                    ):
+                    if (element == "SS" or element == "CCZ"
+                            or element == "Jet_A1" or element == "bell"
+                            or element == "conic"):
                         cval = element
 
                 text_entries[n_line].delete("1.0", "end")
@@ -246,10 +239,16 @@ molecular_mass_units = ["g/mol", "kg/kmol"]
 viscosity_units = ["millipoise", "kg/(m*s)"]
 time_units = ["s", "min", "hr"]
 
-import_button = tk.Button(mw, text="Import Design", width=15, command=import_file)
+import_button = tk.Button(mw,
+                          text="Import Design",
+                          width=15,
+                          command=import_file)
 import_button.grid(row=0, column=0, sticky="w")
 
-export_button = tk.Button(mw, text="Export Design", width=15, command=export_file)
+export_button = tk.Button(mw,
+                          text="Export Design",
+                          width=15,
+                          command=export_file)
 export_button.grid(row=1, column=0, sticky="w")
 
 filename_field_label = tk.Label(mw, text="Filename/path:")
@@ -312,10 +311,13 @@ create_entry("Film Cooling Mass Flow 2", mass_flow_units, "float")
 create_label("Thrust Chamber Thermodynamics")
 create_entry("Combustion Chamber Mass Flow", mass_flow_units, "float")
 create_entry("Chamber Pressure (p_c)", pressure_units, "float")
-create_entry("Chamber Stagnation Temperature (T_c)", temperature_units, "float")
+create_entry("Chamber Stagnation Temperature (T_c)", temperature_units,
+             "float")
 create_entry("Characteristic Velocity (C*)", velocity_units, "float")
-create_entry("Gas Conductivity of Combustion Mixture", conductivity_units, "float")
-create_entry("Avg. Molecular Mass of Combustion Mix.", molecular_mass_units, "float")
+create_entry("Gas Conductivity of Combustion Mixture", conductivity_units,
+             "float")
+create_entry("Avg. Molecular Mass of Combustion Mix.", molecular_mass_units,
+             "float")
 create_entry("Initial Wall Temperature", temperature_units, "float")
 create_entry("Viscosity at Combustion Chamber", viscosity_units, "float")
 create_entry("Gamma at Combustion Chamber", no_unit, "float")
