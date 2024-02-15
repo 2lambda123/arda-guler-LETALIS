@@ -43,14 +43,14 @@ def calc_mach_num(
     :param D_thrt: param D_exit:
     :param a_chmContract: param ROC_chm:
     :param a_nzlExp: param ROC_thrtDn:
-    :param ROC_thrtUp: 
-    :param x_thrt: 
-    :param gamma_thrt: 
-    :param fineness: 
-    :param D_chm: 
-    :param D_exit: 
-    :param ROC_chm: 
-    :param ROC_thrtDn: 
+    :param ROC_thrtUp:
+    :param x_thrt:
+    :param gamma_thrt:
+    :param fineness:
+    :param D_chm:
+    :param D_exit:
+    :param ROC_chm:
+    :param ROC_thrtDn:
 
     """
     global uni_gas_const, pi
@@ -270,14 +270,14 @@ def calc_mach_num_bell(
     :param D_thrt: param D_exit:
     :param a_chmContract: param ROC_chm:
     :param length_percent: param theta_n:
-    :param theta_e: 
-    :param x_thrt: 
-    :param gamma_thrt: 
-    :param fineness: 
-    :param D_chm: 
-    :param D_exit: 
-    :param ROC_chm: 
-    :param theta_n: 
+    :param theta_e:
+    :param x_thrt:
+    :param gamma_thrt:
+    :param fineness:
+    :param D_chm:
+    :param D_exit:
+    :param ROC_chm:
+    :param theta_n:
 
     """
     global uni_gas_const, pi
@@ -462,7 +462,7 @@ def get_index_of_closest_num_in_list(x, lst):
     """
 
     :param x: param lst:
-    :param lst: 
+    :param lst:
 
     """
     min_diff = None
@@ -486,9 +486,9 @@ def get_mach_num_at(
     :param x: param subsonic_mach:
     :param subsonic_x: param supersonic_mach:
     :param supersonic_x: param engine_lengths:
-    :param subsonic_mach: 
-    :param supersonic_mach: 
-    :param engine_lengths: 
+    :param subsonic_mach:
+    :param supersonic_mach:
+    :param engine_lengths:
 
     """
 

@@ -67,24 +67,24 @@ def plot_data(
     :param T_effectives: param coolant_press_drops:
     :param total_clt_press_drops: param vis_model:
     :param filename: Default value = None)
-    :param xs: 
-    :param cylinder_temps_out: 
-    :param coolant_temps: 
-    :param Q_ins: 
-    :param Q_outs: 
-    :param Nusselts: 
-    :param h_gs: 
-    :param clt_vels: 
-    :param Q_out_fulls: 
-    :param geom_y: 
-    :param wet_perimeters: 
-    :param m_engine: 
-    :param L_chamber_chan_width: 
-    :param L_max_chan_width: 
-    :param mdot_clts: 
-    :param rT_layers_plot: 
-    :param coolant_press_drops: 
-    :param vis_model: 
+    :param xs:
+    :param cylinder_temps_out:
+    :param coolant_temps:
+    :param Q_ins:
+    :param Q_outs:
+    :param Nusselts:
+    :param h_gs:
+    :param clt_vels:
+    :param Q_out_fulls:
+    :param geom_y:
+    :param wet_perimeters:
+    :param m_engine:
+    :param L_chamber_chan_width:
+    :param L_max_chan_width:
+    :param mdot_clts:
+    :param rT_layers_plot:
+    :param coolant_press_drops:
+    :param vis_model:
 
     """
 
@@ -107,7 +107,7 @@ def plot_data(
     def plot_engine_contour(ax):
         """
 
-        :param ax: 
+        :param ax:
 
         """
         ax.set_aspect("equal")
@@ -581,7 +581,7 @@ def plot_data(
     def animate_wall_temp(i):
         """
 
-        :param i: 
+        :param i:
 
         """
         wall_temp_line.set_ydata(cylinder_temps[i])
@@ -609,7 +609,7 @@ def plot_data(
     def animate_coolant_temp(i):
         """
 
-        :param i: 
+        :param i:
 
         """
         coolant_temp_line.set_ydata(coolant_temps[i])
@@ -638,7 +638,7 @@ def plot_data(
     def animate_heat_transfer(i):
         """
 
-        :param i: 
+        :param i:
 
         """
         Q_ins_line.set_ydata(Q_ins[i])

@@ -34,7 +34,7 @@ materials = [SS, CCZ, JetA1]
 def get_material_by_name(mtlname):
     """
 
-    :param mtlname: 
+    :param mtlname:
 
     """
     global materials
@@ -51,8 +51,8 @@ def get_cylinder_index_at(x, L_engine, fineness_vertical):
     """
 
     :param x: param L_engine:
-    :param fineness_vertical: 
-    :param L_engine: 
+    :param fineness_vertical:
+    :param L_engine:
 
     """
     return int(x * fineness_vertical / L_engine)
