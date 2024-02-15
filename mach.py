@@ -1,10 +1,10 @@
+from geometry import get_inner_radius_at, get_inner_radius_at_bell
+import random
 import math
 pi = math.pi
-import random
 
-uni_gas_const = uni_gas_const = 8.314472 # m2 kg s-2 K-1 mol-1
+uni_gas_const = uni_gas_const = 8.314472  # m2 kg s-2 K-1 mol-1
 
-from geometry import get_inner_radius_at, get_inner_radius_at_bell
 
 pseudo_infinity = 10e6
 
@@ -13,6 +13,8 @@ pseudo_infinity = 10e6
 # see https://www.grc.nasa.gov/WWW/k-12/airplane/nozzled.html for more
 # also especially see https://www.grc.nasa.gov/WWW/K-12/airplane/astar.html
 # (the R here isn't the universal constant)
+
+
 def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
                   L_engine, D_chm, D_thrt, D_exit, a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp):
     global uni_gas_const, pi
@@ -21,7 +23,7 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
 
     subsonic_M = []
     subsonic_x = []
-    
+
     # calculate for subsonic region (go backwards from throat)
     # m_dot = density * velocity * area
     # density and m_dot are const
@@ -29,8 +31,10 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
     for i in range(fineness):
         x = x_thrt - (i * subsonic_step_size)
 
-        A_star = pi * get_inner_radius_at(x_thrt, L_engine, D_chm, D_thrt, D_exit, a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
-        A = pi * get_inner_radius_at(x, L_engine, D_chm, D_thrt, D_exit, a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
+        A_star = pi * get_inner_radius_at(x_thrt, L_engine, D_chm, D_thrt,
+                                          D_exit, a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
+        A = pi * get_inner_radius_at(x, L_engine, D_chm, D_thrt, D_exit,
+                                     a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
         A_ratio = A/A_star
 
         # Reference (1)
@@ -40,7 +44,7 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
 
         arat = A_ratio
         aro = 2
-        macho = 0.30 #
+        macho = 0.30
 
         fac1 = gp1/(2*gm1)
         machn = macho + 0.05
@@ -63,7 +67,8 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
                 infinity_fuse += 1
 
                 if infinity_fuse > pseudo_infinity:
-                    print("The Mach profile calculator seems to be not converging. Trying a new initial guess...")
+                    print(
+                        "The Mach profile calculator seems to be not converging. Trying a new initial guess...")
                     macho = random.uniform(0.01, 0.99)
 
         # required failsafe
@@ -71,7 +76,7 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
         # mach number is too low or something
         if macho >= 1 or macho < 0.2:
             macho = 0
-            
+
         subsonic_M.insert(0, macho)
         subsonic_x.insert(0, x)
 
@@ -84,9 +89,11 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
     supersonic_step_size = (x_end - x_thrt)/fineness
     for i in range(fineness):
         x = x_thrt + (i * supersonic_step_size)
-        
-        A_star = pi * get_inner_radius_at(x_thrt, L_engine, D_chm, D_thrt, D_exit, a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
-        A = pi * get_inner_radius_at(x, L_engine, D_chm, D_thrt, D_exit, a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
+
+        A_star = pi * get_inner_radius_at(x_thrt, L_engine, D_chm, D_thrt,
+                                          D_exit, a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
+        A = pi * get_inner_radius_at(x, L_engine, D_chm, D_thrt, D_exit,
+                                     a_chmContract, ROC_chm, a_nzlExp, ROC_thrtDn, ROC_thrtUp)**2
         A_ratio = A/A_star
 
         # Reference (1)
@@ -118,7 +125,8 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
             infinity_fuse += 1
 
             if infinity_fuse > pseudo_infinity:
-                print("Mach number calculator might have entered an infinite loop, because it hasn't converged for", pseudo_infinity, "iterations. (A)bort or (C)ontinue for another", pseudo_infinity, "iterations?")
+                print("Mach number calculator might have entered an infinite loop, because it hasn't converged for",
+                      pseudo_infinity, "iterations. (A)bort or (C)ontinue for another", pseudo_infinity, "iterations?")
                 fuse_replacement = input(" > ")
                 if fuse_replacement.lower() == "c":
                     infinity_fuse = 0
@@ -131,11 +139,12 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
                     quit()
                 else:
                     print("Invalid choice!")
-        
+
         supersonic_M.insert(0, macho)
         supersonic_x.insert(0, x)
 
     return subsonic_x, subsonic_M, supersonic_x, supersonic_M
+
 
 def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
                        L_engine, D_chm, D_thrt, D_exit, a_chmContract, ROC_chm, length_percent, theta_n, theta_e):
@@ -144,7 +153,7 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
     subsonic_step_size = x_thrt/fineness
     subsonic_M = []
     subsonic_x = []
-    
+
     # calculate for subsonic region (go backwards from throat)
     # m_dot = density * velocity * area
     # density and m_dot are const
@@ -153,7 +162,8 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
         x = x_thrt - (i * subsonic_step_size)
 
         A_star = pi * (D_thrt/2)**2
-        A = pi * get_inner_radius_at_bell(x, L_engine, D_chm, D_thrt, D_exit, ROC_chm, a_chmContract, length_percent, theta_n, theta_e)**2
+        A = pi * get_inner_radius_at_bell(x, L_engine, D_chm, D_thrt, D_exit,
+                                          ROC_chm, a_chmContract, length_percent, theta_n, theta_e)**2
         A_ratio = A/A_star
 
         # Reference (1)
@@ -163,7 +173,7 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
 
         arat = A_ratio
         aro = 2
-        macho = 0.30 #
+        macho = 0.30
 
         fac1 = gp1/(2*gm1)
         machn = macho + 0.05
@@ -186,7 +196,8 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
             infinity_fuse += 1
 
             if infinity_fuse > pseudo_infinity:
-                print("Mach number calculator might have entered an infinite loop, because it hasn't converged for", pseudo_infinity, "iterations. (A)bort or (C)ontinue for another", pseudo_infinity, "iterations?")
+                print("Mach number calculator might have entered an infinite loop, because it hasn't converged for",
+                      pseudo_infinity, "iterations. (A)bort or (C)ontinue for another", pseudo_infinity, "iterations?")
                 fuse_replacement = input(" > ")
                 if fuse_replacement.lower() == "c":
                     infinity_fuse = 0
@@ -205,7 +216,7 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
         # mach number is too low or something
         if macho >= 1 or macho < 0.2:
             macho = 0
-            
+
         subsonic_M.insert(0, macho)
         subsonic_x.insert(0, x)
 
@@ -218,9 +229,10 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
     supersonic_step_size = (x_end - x_thrt)/fineness
     for i in range(fineness):
         x = x_thrt + (i * supersonic_step_size)
-        
+
         A_star = pi * (D_thrt/2)**2
-        A = pi * get_inner_radius_at_bell(x, L_engine, D_chm, D_thrt, D_exit, ROC_chm, a_chmContract, length_percent, theta_n, theta_e)**2
+        A = pi * get_inner_radius_at_bell(x, L_engine, D_chm, D_thrt, D_exit,
+                                          ROC_chm, a_chmContract, length_percent, theta_n, theta_e)**2
         A_ratio = A/A_star
 
         # Reference (1)
@@ -252,7 +264,8 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
             infinity_fuse += 1
 
             if infinity_fuse > pseudo_infinity:
-                print("Mach number calculator might have entered an infinite loop, because it hasn't converged for", pseudo_infinity, "iterations. (A)bort or (C)ontinue for another", pseudo_infinity, "iterations?")
+                print("Mach number calculator might have entered an infinite loop, because it hasn't converged for",
+                      pseudo_infinity, "iterations. (A)bort or (C)ontinue for another", pseudo_infinity, "iterations?")
                 fuse_replacement = input(" > ")
                 if fuse_replacement.lower() == "c":
                     infinity_fuse = 0
@@ -265,13 +278,15 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
                     quit()
                 else:
                     print("Invalid choice!")
-        
+
         supersonic_M.insert(0, macho)
         supersonic_x.insert(0, x)
 
     return subsonic_x, subsonic_M, supersonic_x, supersonic_M
 
 # this one below isn't any rocket science
+
+
 def get_index_of_closest_num_in_list(x, lst):
     min_diff = None
     closest_index = None
@@ -279,10 +294,12 @@ def get_index_of_closest_num_in_list(x, lst):
         if not min_diff or abs(x - lst[i]) < min_diff:
             min_diff = abs(x - lst[i])
             closest_index = i
-        
+
     return closest_index
 
 # this function just reads values from the already-calculated mach number distribution
+
+
 def get_mach_num_at(x, subsonic_mach, subsonic_x, supersonic_mach, supersonic_x, engine_lengths):
 
     # subsonic region

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import shutil
 
+
 def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_in, coolant_temps, coolant_presses,
               Q_ins, Q_in_per_areas, Q_outs, Reynolds, Nusselts, T_gases, h_gs, h_ls, clt_vels, Q_in_fulls, Q_out_fulls,
               geom_x, geom_y, flow_areas, wet_perimeters, D_hydros, m_engine, L_skirt_chan_width, L_chamber_chan_width,
@@ -23,19 +24,20 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     for Q in Q_out_fulls:
         Q_out_total += Q
 
-##    print("\nTotal Q_in:", Q_in_total * 100)
-##    print("Total Q_out:", Q_out_total * 100)
-##    print("Net Q:", (Q_in_total - Q_out_total) * 100)
+# print("\nTotal Q_in:", Q_in_total * 100)
+# print("Total Q_out:", Q_out_total * 100)
+# print("Net Q:", (Q_in_total - Q_out_total) * 100)
 
     def plot_engine_contour(ax):
         ax.set_aspect("equal")
         ax.set_ylim([-max(geom_y)*0.7, max(max(geom_x), max(geom_y))])
         ax.plot(geom_x, geom_y, color="black")
-        ax.fill_between(geom_x, geom_y, where=[True]*len(geom_x), interpolate=True, color='black')
+        ax.fill_between(geom_x, geom_y, where=[
+                        True]*len(geom_x), interpolate=True, color='black')
         ax.set_ylabel("Engine Contour (m)")
         ax.yaxis.set_label_position("right")
         ax.yaxis.tick_right()
-    
+
     num_frames = len(cylinder_temps)
     fig, ax = plt.subplots()
     plotnum = 0
@@ -49,9 +51,9 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     ax2.set_aspect("auto")
     ax2.yaxis.set_label_position("left")
     ax2.yaxis.tick_left()
-    
+
     for i in range(0, num_frames, int(num_frames/10)):
-        red = max(min(1, max(cylinder_temps[i])/600),0)
+        red = max(min(1, max(cylinder_temps[i])/600), 0)
         blue = 1 - red
         ax2.plot(xs, cylinder_temps[i], color=(red, 0, blue))
 
@@ -70,15 +72,15 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     ax2.set_aspect("auto")
     ax2.yaxis.set_label_position("left")
     ax2.yaxis.tick_left()
-    
-    ax2.plot(xs, cylinder_temps_out[-1], color=(0,0,1))
-    ax2.plot(xs, cylinder_temps_in[-1], color=(1,0,0))
+
+    ax2.plot(xs, cylinder_temps_out[-1], color=(0, 0, 1))
+    ax2.plot(xs, cylinder_temps_in[-1], color=(1, 0, 0))
 
     plt.grid()
     plt.title("Inner & Outer Wall Surface Temperatures")
     ax.set_xlabel("Position (m)")
     ax2.set_ylabel("Temperature (C)")
-    
+
     # COOLANT TEMP. PLOT
     _, ax = plt.subplots()
     plotnum += 1
@@ -91,7 +93,7 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     ax2.yaxis.tick_left()
 
     for i in range(0, num_frames, int(num_frames/10)):
-        red = max(min(1, max(coolant_temps[i])/350),0)
+        red = max(min(1, max(coolant_temps[i])/350), 0)
         blue = 1 - red
         ax2.plot(xs, coolant_temps[i], color=(red, 0, blue))
 
@@ -131,8 +133,8 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     ax2.yaxis.tick_left()
 
     for i in range(0, num_frames, int(num_frames/10)):
-        ax2.plot(xs, Q_ins[i], color=(1,0,0))
-        ax2.plot(xs, Q_outs[i], color=(0,0,1))
+        ax2.plot(xs, Q_ins[i], color=(1, 0, 0))
+        ax2.plot(xs, Q_outs[i], color=(0, 0, 1))
 
     plt.grid()
     plt.title("Heat Transfer")
@@ -151,7 +153,7 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     ax2.yaxis.tick_left()
 
     for i in range(0, num_frames, int(num_frames/10)):
-        ax2.plot(xs, Q_in_per_areas[i], color=(1,0,0))
+        ax2.plot(xs, Q_in_per_areas[i], color=(1, 0, 0))
 
     plt.grid()
     plt.title("Heat Transfer Per Area")
@@ -295,32 +297,32 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     plt.xlabel("Time")
     plt.ylabel("Total Q Out")
 
-##    # HEAT PLOT (3D)
-##    plt.figure(12)
-##    ax = plt.axes(projection='3d')
-##    
-##    times = []
-##    for i in range(num_frames):
-##        times.append(i*time_step)
+# HEAT PLOT (3D)
+# plt.figure(12)
+# ax = plt.axes(projection='3d')
 ##
-##    for i in range(0, num_frames, int(num_frames/10)):
-##        ax.plot3D(Q_ins[i], xs, times[i], color="red")
+# times = []
+# for i in range(num_frames):
+# times.append(i*time_step)
 ##
-##    for i in range(0, num_frames, int(num_frames/10)):
-##        ax.plot3D(Q_outs[i], xs, times[i], color="blue")
+# for i in range(0, num_frames, int(num_frames/10)):
+# ax.plot3D(Q_ins[i], xs, times[i], color="red")
 ##
-##    # HEAT DIFF. PLOT (3D)
-##    plt.figure(13)
-##    ax = plt.axes(projection='3d')
+# for i in range(0, num_frames, int(num_frames/10)):
+# ax.plot3D(Q_outs[i], xs, times[i], color="blue")
 ##
-##    Q_nets = []
-##    for i in range(len(Q_ins)):
-##        Q_nets.append([])
-##        for j in range(len(Q_ins[0])):
-##            Q_nets[i].append(Q_ins[i][j] - Q_outs[i][j])
-##    
-##    for i in range(0, num_frames, int(num_frames/10)):
-##        ax.plot3D(Q_nets[i], xs, times[i], color="green")
+# HEAT DIFF. PLOT (3D)
+# plt.figure(13)
+# ax = plt.axes(projection='3d')
+##
+# Q_nets = []
+# for i in range(len(Q_ins)):
+# Q_nets.append([])
+# for j in range(len(Q_ins[0])):
+# Q_nets[i].append(Q_ins[i][j] - Q_outs[i][j])
+##
+# for i in range(0, num_frames, int(num_frames/10)):
+# ax.plot3D(Q_nets[i], xs, times[i], color="green")
 
     # ENGINE GEOMETRY
     _, ax = plt.subplots()
@@ -328,11 +330,11 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     plt.figure(plotnum)
 
     ax.set_aspect('equal')
-    
+
     geom_y_negative = []
     for y in geom_y:
         geom_y_negative.append(-y)
-        
+
     ax.plot(geom_x, geom_y)
     ax.plot(geom_x, geom_y_negative)
 
@@ -477,10 +479,10 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
     plt.xlabel("Time")
     plt.ylabel("Total Coolant Pressure Drop (Pa)")
 
-    ### ANIMATED FIGURES
+    # ANIMATED FIGURES
     anims = []
     anim_plotnum = 0
-    
+
     # WALL TEMP ANIMATED
     fig, ax = plt.subplots()
     anim_plotnum += 1
@@ -577,11 +579,12 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
             f.write("ys=" + str(geom_y))
             f.write("\n\n")
             f.write("Engine mass (kg): " + str(m_engine) + "\n\n")
-            #f.write("Min. coolant channel width (m): " + str(L_min_chan_width) + "\n")
-            #f.write("Max. coolant channel width (m): " + str(L_max_chan_width) + "\n")
-            #f.write("Chamber coolant channel width (m): " + str(L_chamber_chan_width) + "\n")
-            #f.write("Skirt coolant channel width (m): " + str(L_skirt_chan_width) + "\n\n")
-            f.write("Engine contour change positions (m) = " + str(engine_lengths))
+            # f.write("Min. coolant channel width (m): " + str(L_min_chan_width) + "\n")
+            # f.write("Max. coolant channel width (m): " + str(L_max_chan_width) + "\n")
+            # f.write("Chamber coolant channel width (m): " + str(L_chamber_chan_width) + "\n")
+            # f.write("Skirt coolant channel width (m): " + str(L_skirt_chan_width) + "\n\n")
+            f.write("Engine contour change positions (m) = " +
+                    str(engine_lengths))
     except:
         print("WARNING: Could not export geometry data.")
 
@@ -608,7 +611,8 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
             save_str = folder_name + "/figure_" + str(i) + ".png"
             new_fig.savefig(save_str)
     except:
-        print("ERROR: Could not save some or all of the figures. Try saving figures by hand.")
+        print(
+            "ERROR: Could not save some or all of the figures. Try saving figures by hand.")
         plt.show()
         return
 
@@ -620,11 +624,11 @@ def plot_data(time_step, xs, cylinder_temps, cylinder_temps_out, cylinder_temps_
             anim.save(save_str)
     except:
         print("ERROR: Could not save some or all of animated figures. Try saving figures by hand.")
-        #plt.show()
+        # plt.show()
         return
 
     print("Figures exported successfully!")
-    
+
     print("Clearing figures from memory...")
     for i in range(1, plotnum + anim_plotnum + 1):
         new_fig = plt.figure(i)
