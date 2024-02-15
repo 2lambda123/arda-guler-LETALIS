@@ -1,6 +1,6 @@
+import sys
 import tkinter as tk
 from tkinter import ttk
-import sys
 
 import analysis
 from unit_converter import *

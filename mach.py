@@ -1,6 +1,7 @@
-from geometry import get_inner_radius_at, get_inner_radius_at_bell
-import random
 import math
+import random
+
+from geometry import get_inner_radius_at, get_inner_radius_at_bell
 
 pi = math.pi
 
