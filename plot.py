@@ -46,6 +46,47 @@ def plot_data(
     vis_model,
     filename=None,
 ):
+    """
+
+    :param time_step: 
+    :param xs: 
+    :param cylinder_temps: 
+    :param cylinder_temps_out: 
+    :param cylinder_temps_in: 
+    :param coolant_temps: 
+    :param coolant_presses: 
+    :param Q_ins: 
+    :param Q_in_per_areas: 
+    :param Q_outs: 
+    :param Reynolds: 
+    :param Nusselts: 
+    :param T_gases: 
+    :param h_gs: 
+    :param h_ls: 
+    :param clt_vels: 
+    :param Q_in_fulls: 
+    :param Q_out_fulls: 
+    :param geom_x: 
+    :param geom_y: 
+    :param flow_areas: 
+    :param wet_perimeters: 
+    :param D_hydros: 
+    :param m_engine: 
+    :param L_skirt_chan_width: 
+    :param L_chamber_chan_width: 
+    :param L_min_chan_width: 
+    :param L_max_chan_width: 
+    :param engine_lengths: 
+    :param mdot_clts: 
+    :param T_films: 
+    :param rT_layers_plot: 
+    :param T_effectives: 
+    :param coolant_press_drops: 
+    :param total_clt_press_drops: 
+    :param vis_model: 
+    :param filename:  (Default value = None)
+
+    """
 
     # stop max. number of figures warning (because death to your RAM, that's why!)
     plt.rcParams.update({"figure.max_open_warning": 0})
@@ -64,6 +105,11 @@ def plot_data(
     # print("Net Q:", (Q_in_total - Q_out_total) * 100)
 
     def plot_engine_contour(ax):
+        """
+
+        :param ax: 
+
+        """
         ax.set_aspect("equal")
         ax.set_ylim([-max(geom_y) * 0.7, max(max(geom_x), max(geom_y))])
         ax.plot(geom_x, geom_y, color="black")
@@ -533,6 +579,11 @@ def plot_data(
     (wall_temp_line,) = ax.plot(xs, cylinder_temps[-1])
 
     def animate_wall_temp(i):
+        """
+
+        :param i: 
+
+        """
         wall_temp_line.set_ydata(cylinder_temps[i])
         return (wall_temp_line,)
 
@@ -556,6 +607,11 @@ def plot_data(
     (coolant_temp_line,) = ax.plot(xs, coolant_temps[-1])
 
     def animate_coolant_temp(i):
+        """
+
+        :param i: 
+
+        """
         coolant_temp_line.set_ydata(coolant_temps[i])
         return (coolant_temp_line,)
 
@@ -580,6 +636,11 @@ def plot_data(
     (Q_outs_line,) = ax.plot(xs, Q_outs[-1])
 
     def animate_heat_transfer(i):
+        """
+
+        :param i: 
+
+        """
         Q_ins_line.set_ydata(Q_ins[i])
         Q_outs_line.set_ydata(Q_outs[i])
 

@@ -15,6 +15,7 @@ entry_unit_vars = []
 
 
 def is_run_from_idle():
+    """ """
     return bool("idlelib" in sys.modules)
 
 
@@ -24,6 +25,7 @@ if is_run_from_idle():
 
 
 class entry:
+    """ """
     def __init__(self, entry_field, entry_label, unit_field, unit_type):
         self.entry_field = entry_field
         self.entry_label = entry_label
@@ -31,6 +33,7 @@ class entry:
         self.unit_type = unit_type
 
     def get_value(self):
+        """ """
         if not self.entry_field.get("1.0", "end-1c") == "":
             if self.unit_type == "float":
                 return float(self.entry_field.get("1.0", "end-1c"))
@@ -43,11 +46,17 @@ class entry:
 
 
 def focus_next_widget(event):
+    """
+
+    :param event: 
+
+    """
     event.widget.tk_focusNext().focus()
     return "break"
 
 
 def show_about():
+    """ """
     about_win = tk.Toplevel()
     about_win.title("About LETALIS")
     about_text = (
@@ -64,6 +73,13 @@ def show_about():
 
 
 def create_entry(label, units, unit_type):
+    """
+
+    :param label: 
+    :param units: 
+    :param unit_type: 
+
+    """
     global N_entries, entries, head_offset, text_entries, entry_unit_vars
 
     abs_offset = head_offset + N_entries
@@ -91,6 +107,11 @@ def create_entry(label, units, unit_type):
 
 
 def create_label(label):
+    """
+
+    :param label: 
+
+    """
     global N_entries, head_offset
 
     abs_offset = head_offset + N_entries
@@ -102,6 +123,7 @@ def create_label(label):
 
 
 def export_file():
+    """ """
     global entries
 
     save_filename = filename_field.get("1.0", "end-1c")
@@ -121,6 +143,7 @@ def export_file():
 
 
 def import_file():
+    """ """
     global entries, entry_unit_vars, text_entries
     global material_unit, no_unit, length_units, angle_units, mass_flow_units, pressure_units, temperature_units, velocity_units, conductivity_units, molecular_mass_units, viscosity_units, time_units
 
@@ -163,6 +186,7 @@ def import_file():
 
 
 def start_analysis():
+    """ """
     global material_unit, no_unit, length_units, angle_units, mass_flow_units, pressure_units, temperature_units, velocity_units, conductivity_units, molecular_mass_units, viscosity_units, time_units
 
     params = []

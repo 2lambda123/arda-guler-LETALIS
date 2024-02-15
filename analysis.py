@@ -32,6 +32,11 @@ materials = [SS, CCZ, JetA1]
 
 
 def get_material_by_name(mtlname):
+    """
+
+    :param mtlname: 
+
+    """
     global materials
 
     if mtlname == "SS":
@@ -43,10 +48,24 @@ def get_material_by_name(mtlname):
 
 
 def get_cylinder_index_at(x, L_engine, fineness_vertical):
+    """
+
+    :param x: 
+    :param L_engine: 
+    :param fineness_vertical: 
+
+    """
     return int(x * fineness_vertical / L_engine)
 
 
 def perform(params, config_filename=None, getchar=True):
+    """
+
+    :param params: 
+    :param config_filename:  (Default value = None)
+    :param getchar:  (Default value = True)
+
+    """
 
     # - - - ENGINE GEOMETRY - - -
     L_engine = params[0]  # m

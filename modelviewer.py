@@ -10,6 +10,13 @@ from pyquaternion import Quaternion
 
 
 def show_scale(origin, scale, end):
+    """
+
+    :param origin: 
+    :param scale: 
+    :param end: 
+
+    """
     current_x = origin[0]
     current_y = origin[1]
     current_z = origin[2]
@@ -52,6 +59,12 @@ def show_scale(origin, scale, end):
 
 
 def rotate_matrix(orientation_matrix, rotation):
+    """
+
+    :param orientation_matrix: 
+    :param rotation: 
+
+    """
     # orientation matrix is a 3x3 matrix, rotation is a list of three angles in degrees
     orientation_matrix = numpy.array(orientation_matrix)
 
@@ -95,11 +108,17 @@ def rotate_matrix(orientation_matrix, rotation):
 
 
 class camera:
+    """ """
     def __init__(self, pos, orient):
         self.pos = pos
         self.orient = orient
 
     def move(self, movement):
+        """
+
+        :param movement: 
+
+        """
         glTranslate(
             (movement[0] * self.orient[0][0])
             + (movement[1] * self.orient[1][0])
@@ -128,6 +147,11 @@ class camera:
         ]
 
     def rotate(self, rotation):
+        """
+
+        :param rotation: 
+
+        """
         about_pos = self.pos
 
         glTranslate(-about_pos[0], -about_pos[1], -about_pos[2])
@@ -146,6 +170,7 @@ class camera:
 
 
 def import_model():
+    """ """
     import_file = open("3d_model.txt", "r")
     import_lines = import_file.readlines()
 
@@ -194,6 +219,7 @@ def import_model():
 
 
 def main():
+    """ """
     print("Reading 3D model...")
     model_data, injection_vertices = import_model()
 
