@@ -7,22 +7,53 @@ pi = math.pi
 
 
 def get_area_of_sector(r_in, r_out, angle):
+    """
+
+    :param r_in: 
+    :param r_out: 
+    :param angle: 
+
+    """
     return pi * (r_out**2 - r_in**2) * (angle / 360)
 
 
 def get_volume_of_sector(r_in, r_out, angle, height):
+    """
+
+    :param r_in: 
+    :param r_out: 
+    :param angle: 
+    :param height: 
+
+    """
     return get_area_of_sector(r_in, r_out, angle) * height
 
 
 def get_sector_face_area(r, angle, height):
+    """
+
+    :param r: 
+    :param angle: 
+    :param height: 
+
+    """
     return (2 * pi * r) * height * (angle / 360)
 
 
 def get_sector_face_area_slanted(r1, r2, angle, height):
+    """
+
+    :param r1: 
+    :param r2: 
+    :param angle: 
+    :param height: 
+
+    """
     return (pi * r2 + pi * r1) * height * (angle / 360)
 
 
 class cylinder:
+    """ """
     def __init__(
         self, x, r_in, r_out, h, n_clt, r_clt, a_clt, b_clt, mtl, T_init, M, r_prev=None
     ):
@@ -56,33 +87,43 @@ class cylinder:
         self.m = self.V * self.mtl.get_density()  # mass
 
     def get_m(self):
+        """ """
         return self.m
 
     def get_Mach(self):
+        """ """
         return self.Mach
 
     def get_mtl(self):
+        """ """
         return self.mtl
 
     def get_T(self):
+        """ """
         return self.temp
 
     def get_A_chm(self):
+        """ """
         return self.A_chm
 
     def get_A_clt(self):
+        """ """
         return self.A_clt
 
     def get_A_cochan_flow(self):
+        """ """
         return self.A_cochan_flow
 
     def get_spec_heat(self):
+        """ """
         return self.mtl.get_specific_heat(self.T)
 
     def get_heat_capacity(self):
+        """ """
         return self.get_spec_heat() * self.get_m()
 
     def get_thermal_resistance(self):
+        """ """
         return self.thickness / (self.mtl.get_thermal_conductivity(self.T) * self.A_chm)
 
 
@@ -109,11 +150,31 @@ def calculate_geometry(
     ROC_thrtUp,
     fineness,
 ):
+    """
+
+    :param L_engine: 
+    :param D_chm: 
+    :param D_thrt: 
+    :param D_exit: 
+    :param a_chmContract: 
+    :param ROC_chm: 
+    :param a_nzlExp: 
+    :param ROC_thrtDn: 
+    :param ROC_thrtUp: 
+    :param fineness: 
+
+    """
     global pi
 
     x_step = L_engine / fineness
 
     def arc_diff(R, theta):
+        """
+
+        :param R: 
+        :param theta: 
+
+        """
 
         if theta > 2 * pi:
             print("Func: arc_diff() -- Make sure theta is in radians!")
@@ -298,9 +359,31 @@ def calculate_geometry_bell(
     x_fine=None,
     t_fine=None,
 ):
+    """
+
+    :param L_engine: 
+    :param D_chm: 
+    :param D_thrt: 
+    :param D_exit: 
+    :param ROC_chm: 
+    :param a_chmContract: 
+    :param fineness: 
+    :param length_percent:  (Default value = 80)
+    :param theta_n:  (Default value = None)
+    :param theta_e:  (Default value = None)
+    :param x_fine:  (Default value = None)
+    :param t_fine:  (Default value = None)
+
+    """
     global pi
 
     def arc_diff(R, theta):
+        """
+
+        :param R: 
+        :param theta: 
+
+        """
 
         if theta > 2 * pi:
             print("Func: arc_diff() -- Make sure theta is in radians!")
@@ -485,9 +568,29 @@ def get_inner_radius_at(
     ROC_thrtDn,
     ROC_thrtUp,
 ):
+    """
+
+    :param x: 
+    :param L_engine: 
+    :param D_chm: 
+    :param D_thrt: 
+    :param D_exit: 
+    :param a_chmContract: 
+    :param ROC_chm: 
+    :param a_nzlExp: 
+    :param ROC_thrtDn: 
+    :param ROC_thrtUp: 
+
+    """
     global pi
 
     def arc_diff(R, theta):
+        """
+
+        :param R: 
+        :param theta: 
+
+        """
 
         if theta > 2 * pi:
             print("Func: arc_diff() -- Make sure theta is in radians!")
@@ -622,9 +725,29 @@ def get_inner_radius_at_bell(
     theta_n=None,
     theta_e=None,
 ):
+    """
+
+    :param x: 
+    :param L_engine: 
+    :param D_chm: 
+    :param D_thrt: 
+    :param D_exit: 
+    :param ROC_chm: 
+    :param a_chmContract: 
+    :param length_percent:  (Default value = 80)
+    :param theta_n:  (Default value = None)
+    :param theta_e:  (Default value = None)
+
+    """
     global pi
 
     def arc_diff(R, theta):
+        """
+
+        :param R: 
+        :param theta: 
+
+        """
 
         if theta > 2 * pi:
             print("Func: arc_diff() -- Make sure theta is in radians!")
@@ -728,6 +851,12 @@ def get_inner_radius_at_bell(
 
 
 def get_index_of_closest_num_in_list(x, lst):
+    """
+
+    :param x: 
+    :param lst: 
+
+    """
     min_diff = None
     closest_index = None
     for i in range(len(lst)):
@@ -739,6 +868,13 @@ def get_index_of_closest_num_in_list(x, lst):
 
 
 def get_parabola_y_at(x, parabola_x, parabola_y):
+    """
+
+    :param x: 
+    :param parabola_x: 
+    :param parabola_y: 
+
+    """
     bottom_x = None
     bottom_x_diff = None
     top_x = None
@@ -769,6 +905,11 @@ def get_parabola_y_at(x, parabola_x, parabola_y):
 
 
 def get_mach_num_at(x):
+    """
+
+    :param x: 
+
+    """
     global subsonic_mach, subsonic_x, supersonic_mach, supersonic_x, engine_lengths
 
     # subsonic region
@@ -793,6 +934,16 @@ def generate_3D_old(
     L_cochanTangentialWidth,
     L_cochanDepth,
 ):
+    """
+
+    :param geom_x: 
+    :param geom_y: 
+    :param n_cochan: 
+    :param L_cochanInnerWallDist: 
+    :param L_cochanTangentialWidth: 
+    :param L_cochanDepth: 
+
+    """
 
     vertices = []
     faces = []
@@ -852,6 +1003,20 @@ def generate_3D_blade(
     mdot_filmInject2,
     L_filmInject2,
 ):
+    """
+
+    :param geom_x: 
+    :param geom_y: 
+    :param n_cochan: 
+    :param L_cochanInnerWallDist: 
+    :param L_cochanTangentialWidth: 
+    :param L_cochanDepth: 
+    :param mdot_filmInject1: 
+    :param L_filmInject1: 
+    :param mdot_filmInject2: 
+    :param L_filmInject2: 
+
+    """
 
     # simplify expressions for ease of coding
     a = L_cochanTangentialWidth
