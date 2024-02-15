@@ -366,11 +366,11 @@ def perform(params, config_filename=None, getchar=True):
 
     for cylin in cylinders:
         if (not L_min_chan_width or (2 * pi * cylin.r_clt) *
-            (cylin.a_clt / 360) < L_min_chan_width):
+                (cylin.a_clt / 360) < L_min_chan_width):
             L_min_chan_width = (2 * pi * cylin.r_clt) * (cylin.a_clt / 360)
 
         if (not L_max_chan_width or (2 * pi * cylin.r_clt) *
-            (cylin.a_clt / 360) > L_max_chan_width):
+                (cylin.a_clt / 360) > L_max_chan_width):
             L_max_chan_width = (2 * pi * cylin.r_clt) * (cylin.a_clt / 360)
 
     L_chamber_chan_width = (2 * pi *
@@ -676,7 +676,7 @@ def perform(params, config_filename=None, getchar=True):
                                            (Reynolds_num**(1 / 4))) * epsilon_f
                 else:
                     friction_loss_coeff = (0.0032 + (0.221 /
-                                                     (Reynolds_num**
+                                                     (Reynolds_num **
                                                       (0.237)))) * epsilon_f
 
                 coolant_press_drop = (friction_loss_coeff * (cy.h / D_hydro) *
