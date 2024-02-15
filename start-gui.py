@@ -48,7 +48,7 @@ class entry:
 def focus_next_widget(event):
     """
 
-    :param event: 
+    :param event:
 
     """
     event.widget.tk_focusNext().focus()
@@ -75,9 +75,9 @@ def show_about():
 def create_entry(label, units, unit_type):
     """
 
-    :param label: 
-    :param units: 
-    :param unit_type: 
+    :param label:
+    :param units:
+    :param unit_type:
 
     """
     global N_entries, entries, head_offset, text_entries, entry_unit_vars
@@ -109,7 +109,7 @@ def create_entry(label, units, unit_type):
 def create_label(label):
     """
 
-    :param label: 
+    :param label:
 
     """
     global N_entries, head_offset

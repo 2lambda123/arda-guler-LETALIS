@@ -12,9 +12,9 @@ from pyquaternion import Quaternion
 def show_scale(origin, scale, end):
     """
 
-    :param origin: 
-    :param scale: 
-    :param end: 
+    :param origin:
+    :param scale:
+    :param end:
 
     """
     current_x = origin[0]
@@ -61,8 +61,8 @@ def show_scale(origin, scale, end):
 def rotate_matrix(orientation_matrix, rotation):
     """
 
-    :param orientation_matrix: 
-    :param rotation: 
+    :param orientation_matrix:
+    :param rotation:
 
     """
     # orientation matrix is a 3x3 matrix, rotation is a list of three angles in degrees
@@ -116,7 +116,7 @@ class camera:
     def move(self, movement):
         """
 
-        :param movement: 
+        :param movement:
 
         """
         glTranslate(
@@ -149,7 +149,7 @@ class camera:
     def rotate(self, rotation):
         """
 
-        :param rotation: 
+        :param rotation:
 
         """
         about_pos = self.pos
