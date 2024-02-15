@@ -47,6 +47,7 @@ def show_scale(origin, scale, end):
     glPopMatrix()
     current_z = origin[2]
 
+
 # rotate an orientation matrix
 
 
@@ -56,21 +57,39 @@ def rotate_matrix(orientation_matrix, rotation):
 
     if rotation[0]:
         rotator = Quaternion(
-            axis=orientation_matrix[0], angle=math.radians(rotation[0]))
-        orientation_matrix = (numpy.array([rotator.rotate(orientation_matrix[0]), rotator.rotate(
-            orientation_matrix[1]), rotator.rotate(orientation_matrix[2])]))
+            axis=orientation_matrix[0], angle=math.radians(rotation[0])
+        )
+        orientation_matrix = numpy.array(
+            [
+                rotator.rotate(orientation_matrix[0]),
+                rotator.rotate(orientation_matrix[1]),
+                rotator.rotate(orientation_matrix[2]),
+            ]
+        )
 
     if rotation[1]:
         rotator = Quaternion(
-            axis=orientation_matrix[1], angle=math.radians(rotation[1]))
-        orientation_matrix = (numpy.array([rotator.rotate(orientation_matrix[0]), rotator.rotate(
-            orientation_matrix[1]), rotator.rotate(orientation_matrix[2])]))
+            axis=orientation_matrix[1], angle=math.radians(rotation[1])
+        )
+        orientation_matrix = numpy.array(
+            [
+                rotator.rotate(orientation_matrix[0]),
+                rotator.rotate(orientation_matrix[1]),
+                rotator.rotate(orientation_matrix[2]),
+            ]
+        )
 
     if rotation[2]:
         rotator = Quaternion(
-            axis=orientation_matrix[2], angle=math.radians(rotation[2]))
-        orientation_matrix = (numpy.array([rotator.rotate(orientation_matrix[0]), rotator.rotate(
-            orientation_matrix[1]), rotator.rotate(orientation_matrix[2])]))
+            axis=orientation_matrix[2], angle=math.radians(rotation[2])
+        )
+        orientation_matrix = numpy.array(
+            [
+                rotator.rotate(orientation_matrix[0]),
+                rotator.rotate(orientation_matrix[1]),
+                rotator.rotate(orientation_matrix[2]),
+            ]
+        )
 
     return orientation_matrix.tolist()
 
@@ -81,32 +100,46 @@ class camera:
         self.orient = orient
 
     def move(self, movement):
-        glTranslate((movement[0] * self.orient[0][0]) + (movement[1] * self.orient[1][0]) + (movement[2] * self.orient[2][0]),
-                    (movement[0] * self.orient[0][1]) + (movement[1] *
-                                                         self.orient[1][1]) + (movement[2] * self.orient[2][1]),
-                    (movement[0] * self.orient[0][2]) + (movement[1] * self.orient[1][2]) + (movement[2] * self.orient[2][2]))
+        glTranslate(
+            (movement[0] * self.orient[0][0])
+            + (movement[1] * self.orient[1][0])
+            + (movement[2] * self.orient[2][0]),
+            (movement[0] * self.orient[0][1])
+            + (movement[1] * self.orient[1][1])
+            + (movement[2] * self.orient[2][1]),
+            (movement[0] * self.orient[0][2])
+            + (movement[1] * self.orient[1][2])
+            + (movement[2] * self.orient[2][2]),
+        )
 
-        self.pos = [self.pos[0] + (movement[0] * self.orient[0][0]) + (movement[1] * self.orient[1][0]) + (movement[2] * self.orient[2][0]),
-                    self.pos[1] + (movement[0] * self.orient[0][1]) + (movement[1]
-                                                                       * self.orient[1][1]) + (movement[2] * self.orient[2][1]),
-                    self.pos[2] + (movement[0] * self.orient[0][2]) + (movement[1] * self.orient[1][2]) + (movement[2] * self.orient[2][2])]
+        self.pos = [
+            self.pos[0]
+            + (movement[0] * self.orient[0][0])
+            + (movement[1] * self.orient[1][0])
+            + (movement[2] * self.orient[2][0]),
+            self.pos[1]
+            + (movement[0] * self.orient[0][1])
+            + (movement[1] * self.orient[1][1])
+            + (movement[2] * self.orient[2][1]),
+            self.pos[2]
+            + (movement[0] * self.orient[0][2])
+            + (movement[1] * self.orient[1][2])
+            + (movement[2] * self.orient[2][2]),
+        ]
 
     def rotate(self, rotation):
         about_pos = self.pos
 
         glTranslate(-about_pos[0], -about_pos[1], -about_pos[2])
-        glRotate(-rotation[0], self.orient[0][0],
-                 self.orient[0][1], self.orient[0][2])
+        glRotate(-rotation[0], self.orient[0][0], self.orient[0][1], self.orient[0][2])
         glTranslate(about_pos[0], about_pos[1], about_pos[2])
 
         glTranslate(-about_pos[0], -about_pos[1], -about_pos[2])
-        glRotate(-rotation[1], self.orient[1][0],
-                 self.orient[1][1], self.orient[1][2])
+        glRotate(-rotation[1], self.orient[1][0], self.orient[1][1], self.orient[1][2])
         glTranslate(about_pos[0], about_pos[1], about_pos[2])
 
         glTranslate(-about_pos[0], -about_pos[1], -about_pos[2])
-        glRotate(-rotation[2], self.orient[2][0],
-                 self.orient[2][1], self.orient[2][2])
+        glRotate(-rotation[2], self.orient[2][0], self.orient[2][1], self.orient[2][2])
         glTranslate(about_pos[0], about_pos[1], about_pos[2])
 
         self.orient = rotate_matrix(self.orient, rotation)
@@ -166,15 +199,14 @@ def main():
 
     window_x = 1000
     window_y = 600
-    window_ratio = window_x/window_y
+    window_ratio = window_x / window_y
     fov = 70
     near_clip = 0.0005
     far_clip = 100
 
     glfw.init()
 
-    window = glfw.create_window(
-        window_x, window_y, "Engine Viewer", None, None)
+    window = glfw.create_window(window_x, window_y, "Engine Viewer", None, None)
     glfw.set_window_pos(window, 100, 100)
     glfw.make_context_current(window)
 
@@ -192,19 +224,22 @@ def main():
     detail_dx = 15
 
     x_end = model_data[-2][0][0][0]
-    x_mid = x_end/2
+    x_mid = x_end / 2
 
     y_end = model_data[0][0][0][1]
     z_end = y_end
-    main_cam.move([-x_mid, 0, y_end*5])
+    main_cam.move([-x_mid, 0, y_end * 5])
 
     n_angular = len(model_data[0][0])
 
     scale_size = 0.01  # m
-    print("Reference scale:", scale_size*1000, "mm")
+    print("Reference scale:", scale_size * 1000, "mm")
     scale_origin = [0, y_end, z_end]
-    scale_end = [scale_origin[0] + x_end,
-                 scale_origin[1]-2*y_end, scale_origin[2]-2*z_end]
+    scale_end = [
+        scale_origin[0] + x_end,
+        scale_origin[1] - 2 * y_end,
+        scale_origin[2] - 2 * z_end,
+    ]
 
     print("Controls:")
     print("WASDQE for camera moevement")
@@ -275,13 +310,13 @@ def main():
         # scale controls
         if keyboard.is_pressed("1") and not scale_size == 0.001:
             scale_size = 0.001
-            print("Reference scale:", scale_size*1000, "mm")
+            print("Reference scale:", scale_size * 1000, "mm")
         elif keyboard.is_pressed("2") and not scale_size == 0.01:
             scale_size = 0.01
-            print("Reference scale:", scale_size*1000, "mm")
+            print("Reference scale:", scale_size * 1000, "mm")
         elif keyboard.is_pressed("3") and not scale_size == 0.1:
             scale_size = 0.1
-            print("Reference scale:", scale_size*1000, "mm")
+            print("Reference scale:", scale_size * 1000, "mm")
 
         if keyboard.is_pressed("shift"):
             if keyboard.is_pressed("g"):
@@ -387,9 +422,12 @@ def main():
                 ax_index = 0
 
                 while ax_index < len(model_data) - 1:
-                    glVertex3f(model_data[ax_index][0][rad_index][0], model_data[ax_index]
-                               [0][rad_index][1], model_data[ax_index][0][rad_index][2])
-                    ax_index += int(len(model_data) * detail_dx/200)
+                    glVertex3f(
+                        model_data[ax_index][0][rad_index][0],
+                        model_data[ax_index][0][rad_index][1],
+                        model_data[ax_index][0][rad_index][2],
+                    )
+                    ax_index += int(len(model_data) * detail_dx / 200)
 
                 glEnd()
 
@@ -403,9 +441,12 @@ def main():
                 ax_index = 0
 
                 while ax_index < len(model_data) - 1:
-                    glVertex3f(model_data[ax_index][1][rad_index2][0], model_data[ax_index]
-                               [1][rad_index2][1], model_data[ax_index][1][rad_index2][2])
-                    ax_index += int(len(model_data) * detail_dx/200)
+                    glVertex3f(
+                        model_data[ax_index][1][rad_index2][0],
+                        model_data[ax_index][1][rad_index2][1],
+                        model_data[ax_index][1][rad_index2][2],
+                    )
+                    ax_index += int(len(model_data) * detail_dx / 200)
 
                 glEnd()
 
