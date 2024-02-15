@@ -9,9 +9,9 @@ pi = math.pi
 def get_area_of_sector(r_in, r_out, angle):
     """
 
-    :param r_in:
-    :param r_out:
-    :param angle:
+    :param r_in: param r_out:
+    :param angle: 
+    :param r_out: 
 
     """
     return pi * (r_out**2 - r_in**2) * (angle / 360)
@@ -20,10 +20,10 @@ def get_area_of_sector(r_in, r_out, angle):
 def get_volume_of_sector(r_in, r_out, angle, height):
     """
 
-    :param r_in:
-    :param r_out:
-    :param angle:
-    :param height:
+    :param r_in: param r_out:
+    :param angle: param height:
+    :param r_out: 
+    :param height: 
 
     """
     return get_area_of_sector(r_in, r_out, angle) * height
@@ -32,9 +32,9 @@ def get_volume_of_sector(r_in, r_out, angle, height):
 def get_sector_face_area(r, angle, height):
     """
 
-    :param r:
-    :param angle:
-    :param height:
+    :param r: param angle:
+    :param height: 
+    :param angle: 
 
     """
     return (2 * pi * r) * height * (angle / 360)
@@ -43,10 +43,10 @@ def get_sector_face_area(r, angle, height):
 def get_sector_face_area_slanted(r1, r2, angle, height):
     """
 
-    :param r1:
-    :param r2:
-    :param angle:
-    :param height:
+    :param r1: param r2:
+    :param angle: param height:
+    :param r2: 
+    :param height: 
 
     """
     return (pi * r2 + pi * r1) * height * (angle / 360)
@@ -153,16 +153,16 @@ def calculate_geometry(
 ):
     """
 
-    :param L_engine:
-    :param D_chm:
-    :param D_thrt:
-    :param D_exit:
-    :param a_chmContract:
-    :param ROC_chm:
-    :param a_nzlExp:
-    :param ROC_thrtDn:
-    :param ROC_thrtUp:
-    :param fineness:
+    :param L_engine: param D_chm:
+    :param D_thrt: param D_exit:
+    :param a_chmContract: param ROC_chm:
+    :param a_nzlExp: param ROC_thrtDn:
+    :param ROC_thrtUp: param fineness:
+    :param D_chm: 
+    :param D_exit: 
+    :param ROC_chm: 
+    :param ROC_thrtDn: 
+    :param fineness: 
 
     """
     global pi
@@ -172,8 +172,8 @@ def calculate_geometry(
     def arc_diff(R, theta):
         """
 
-        :param R:
-        :param theta:
+        :param R: param theta:
+        :param theta: 
 
         """
 
@@ -362,18 +362,18 @@ def calculate_geometry_bell(
 ):
     """
 
-    :param L_engine:
-    :param D_chm:
-    :param D_thrt:
-    :param D_exit:
-    :param ROC_chm:
-    :param a_chmContract:
-    :param fineness:
+    :param L_engine: param D_chm:
+    :param D_thrt: param D_exit:
+    :param ROC_chm: param a_chmContract:
+    :param fineness: param length_percent:  (Default value = 80)
+    :param theta_n: Default value = None)
+    :param theta_e: Default value = None)
+    :param x_fine: Default value = None)
+    :param t_fine: Default value = None)
+    :param D_chm: 
+    :param D_exit: 
+    :param a_chmContract: 
     :param length_percent:  (Default value = 80)
-    :param theta_n:  (Default value = None)
-    :param theta_e:  (Default value = None)
-    :param x_fine:  (Default value = None)
-    :param t_fine:  (Default value = None)
 
     """
     global pi
@@ -381,8 +381,8 @@ def calculate_geometry_bell(
     def arc_diff(R, theta):
         """
 
-        :param R:
-        :param theta:
+        :param R: param theta:
+        :param theta: 
 
         """
 
@@ -571,16 +571,16 @@ def get_inner_radius_at(
 ):
     """
 
-    :param x:
-    :param L_engine:
-    :param D_chm:
-    :param D_thrt:
-    :param D_exit:
-    :param a_chmContract:
-    :param ROC_chm:
-    :param a_nzlExp:
-    :param ROC_thrtDn:
-    :param ROC_thrtUp:
+    :param x: param L_engine:
+    :param D_chm: param D_thrt:
+    :param D_exit: param a_chmContract:
+    :param ROC_chm: param a_nzlExp:
+    :param ROC_thrtDn: param ROC_thrtUp:
+    :param L_engine: 
+    :param D_thrt: 
+    :param a_chmContract: 
+    :param a_nzlExp: 
+    :param ROC_thrtUp: 
 
     """
     global pi
@@ -588,8 +588,8 @@ def get_inner_radius_at(
     def arc_diff(R, theta):
         """
 
-        :param R:
-        :param theta:
+        :param R: param theta:
+        :param theta: 
 
         """
 
@@ -728,16 +728,16 @@ def get_inner_radius_at_bell(
 ):
     """
 
-    :param x:
-    :param L_engine:
-    :param D_chm:
-    :param D_thrt:
-    :param D_exit:
-    :param ROC_chm:
-    :param a_chmContract:
+    :param x: param L_engine:
+    :param D_chm: param D_thrt:
+    :param D_exit: param ROC_chm:
+    :param a_chmContract: param length_percent:  (Default value = 80)
+    :param theta_n: Default value = None)
+    :param theta_e: Default value = None)
+    :param L_engine: 
+    :param D_thrt: 
+    :param ROC_chm: 
     :param length_percent:  (Default value = 80)
-    :param theta_n:  (Default value = None)
-    :param theta_e:  (Default value = None)
 
     """
     global pi
@@ -745,8 +745,8 @@ def get_inner_radius_at_bell(
     def arc_diff(R, theta):
         """
 
-        :param R:
-        :param theta:
+        :param R: param theta:
+        :param theta: 
 
         """
 
@@ -854,8 +854,8 @@ def get_inner_radius_at_bell(
 def get_index_of_closest_num_in_list(x, lst):
     """
 
-    :param x:
-    :param lst:
+    :param x: param lst:
+    :param lst: 
 
     """
     min_diff = None
@@ -871,9 +871,9 @@ def get_index_of_closest_num_in_list(x, lst):
 def get_parabola_y_at(x, parabola_x, parabola_y):
     """
 
-    :param x:
-    :param parabola_x:
-    :param parabola_y:
+    :param x: param parabola_x:
+    :param parabola_y: 
+    :param parabola_x: 
 
     """
     bottom_x = None
@@ -908,7 +908,7 @@ def get_parabola_y_at(x, parabola_x, parabola_y):
 def get_mach_num_at(x):
     """
 
-    :param x:
+    :param x: 
 
     """
     global subsonic_mach, subsonic_x, supersonic_mach, supersonic_x, engine_lengths
@@ -937,12 +937,12 @@ def generate_3D_old(
 ):
     """
 
-    :param geom_x:
-    :param geom_y:
-    :param n_cochan:
-    :param L_cochanInnerWallDist:
-    :param L_cochanTangentialWidth:
-    :param L_cochanDepth:
+    :param geom_x: param geom_y:
+    :param n_cochan: param L_cochanInnerWallDist:
+    :param L_cochanTangentialWidth: param L_cochanDepth:
+    :param geom_y: 
+    :param L_cochanInnerWallDist: 
+    :param L_cochanDepth: 
 
     """
 
@@ -1006,16 +1006,16 @@ def generate_3D_blade(
 ):
     """
 
-    :param geom_x:
-    :param geom_y:
-    :param n_cochan:
-    :param L_cochanInnerWallDist:
-    :param L_cochanTangentialWidth:
-    :param L_cochanDepth:
-    :param mdot_filmInject1:
-    :param L_filmInject1:
-    :param mdot_filmInject2:
-    :param L_filmInject2:
+    :param geom_x: param geom_y:
+    :param n_cochan: param L_cochanInnerWallDist:
+    :param L_cochanTangentialWidth: param L_cochanDepth:
+    :param mdot_filmInject1: param L_filmInject1:
+    :param mdot_filmInject2: param L_filmInject2:
+    :param geom_y: 
+    :param L_cochanInnerWallDist: 
+    :param L_cochanDepth: 
+    :param L_filmInject1: 
+    :param L_filmInject2: 
 
     """
 
