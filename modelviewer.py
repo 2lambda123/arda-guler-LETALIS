@@ -1,12 +1,12 @@
+import math
+
+import glfw
+import keyboard
+import numpy
 import OpenGL
 from OpenGL.GL import *
 from OpenGL.GLU import *
-import glfw
-
-import keyboard
 from pyquaternion import Quaternion
-import numpy
-import math
 
 
 def show_scale(origin, scale, end):

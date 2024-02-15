@@ -1,9 +1,10 @@
-import time
 import datetime
 import os
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import shutil
+import time
+
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
 
 
 def plot_data(

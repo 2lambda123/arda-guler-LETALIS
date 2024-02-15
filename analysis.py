@@ -9,15 +9,16 @@
 # H. Arda Güler
 # - - - - - - - - - - - - - - - - - - - -
 
-from ui import *
-from plot import *
+import math
+import re
+import time
+
+from film_coeff import *
+from geometry import *
 from mach import *
 from material import SS304L, CuCrZr, Jet_A1
-from geometry import *
-from film_coeff import *
-import time
-import re
-import math
+from plot import *
+from ui import *
 
 pi = math.pi
 euler = math.e
