@@ -1,7 +1,8 @@
 import math
 
 from bell_nozzle import *
-from material import SS304L, CuCrZr
+from material import CuCrZr
+from material import SS304L
 
 pi = math.pi
 

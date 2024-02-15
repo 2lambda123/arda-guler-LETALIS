@@ -15,7 +15,9 @@ import time
 from film_coeff import *
 from geometry import *
 from mach import *
-from material import SS304L, CuCrZr, Jet_A1
+from material import CuCrZr
+from material import Jet_A1
+from material import SS304L
 from plot import *
 from ui import *
 
