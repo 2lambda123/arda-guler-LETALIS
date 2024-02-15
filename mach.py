@@ -1,6 +1,7 @@
 import math
+import secrets
+
 pi = math.pi
-import random
 
 uni_gas_const = uni_gas_const = 8.314472 # m2 kg s-2 K-1 mol-1
 
@@ -64,7 +65,7 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
 
                 if infinity_fuse > pseudo_infinity:
                     print("The Mach profile calculator seems to be not converging. Trying a new initial guess...")
-                    macho = random.uniform(0.01, 0.99)
+                    macho = secrets.SystemRandom().uniform(0.01, 0.99)
 
         # required failsafe
         # NASA's code fails spectacularly if
@@ -123,7 +124,7 @@ def calc_mach_num(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, fineness,
                 if fuse_replacement.lower() == "c":
                     infinity_fuse = 0
                     # get new initial guess because the old one obviously is no good
-                    macho = random.uniform(1.01, 4.99)
+                    macho = secrets.SystemRandom().uniform(1.01, 4.99)
                     print("DEBUG: New initial guess:", macho)
                 elif fuse_replacement.lower() == "a":
                     print("Analysis aborted.")
@@ -191,7 +192,7 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
                 if fuse_replacement.lower() == "c":
                     infinity_fuse = 0
                     # get new initial guess because the old one obviously is no good
-                    macho = random.uniform(0.01, 0.99)
+                    macho = secrets.SystemRandom().uniform(0.01, 0.99)
                     print("DEBUG: New initial guess:", macho)
                 elif fuse_replacement.lower() == "a":
                     print("Analysis aborted.")
@@ -257,7 +258,7 @@ def calc_mach_num_bell(x_end, x_thrt, Tc, gamma_thrt, avg_molecular_mass, finene
                 if fuse_replacement.lower() == "c":
                     infinity_fuse = 0
                     # get new initial guess because the old one obviously is no good
-                    macho = random.uniform(1.01, 4.99)
+                    macho = secrets.SystemRandom().uniform(1.01, 4.99)
                     print("DEBUG: New initial guess:", macho)
                 elif fuse_replacement.lower() == "a":
                     print("Analysis aborted.")
