@@ -163,8 +163,8 @@ class camera:
 
 def import_model():
     """ """
-    import_file = open("3d_model.txt", "r")
-    import_lines = import_file.readlines()
+    with open("3d_model.txt", "r") as import_file:
+        import_lines = import_file.readlines()
 
     axials = [[[], []]]
     x_index = 0
